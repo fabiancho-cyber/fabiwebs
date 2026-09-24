@@ -86,6 +86,8 @@ https://github.com/fabiancho-cyber/fabiwebs
 
 Para publicar la aplicación, genera primero la build de producción y despliega la carpeta `dist/` en un servicio compatible con aplicaciones estáticas, como GitHub Pages, Vercel o Netlify.
 
+GitHub Pages se despliega automáticamente mediante GitHub Actions en cada push a `main`.
+
 ## Contacto
 
 FABIWEBS  
