@@ -28,6 +28,7 @@ export default function AnimatedBackButton({ dark = false, inline = false }: { d
           fontSize: inline ? '0.82rem' : '0.6rem',
           letterSpacing: '0.2em',
           cursor: leaving ? 'wait' : 'pointer',
+          pointerEvents: 'all',
           backdropFilter: 'blur(12px)',
           transition: 'all 0.3s, transform 0.3s',
           opacity: leaving ? 0.7 : 1,
