@@ -98,7 +98,7 @@ export default function EcommerceDemo() {
       {/* Back + Cart */}
       <div style={{ position: 'fixed', top: '1.5rem', left: '1.5rem', right: '1.5rem', zIndex: 100, display: 'flex', justifyContent: 'space-between', alignItems: 'center', pointerEvents: 'none' }}>
         <AnimatedBackButton dark />
-        <button onClick={() => setCart(c => c + 1)} style={{ pointerEvents: 'all', background: 'rgba(6,6,13,0.9)', border: '1px solid rgba(0,229,255,0.3)', color: '#00e5ff', padding: '0.6rem 1.2rem', fontFamily: 'Space Mono, monospace', fontSize: '0.6rem', letterSpacing: '0.15em', cursor: 'pointer', backdropFilter: 'blur(12px)' }}>
+        <button onClick={() => setCart(c => c + 1)} style={{ position: 'fixed', top: '1.5rem', right: '1.5rem', pointerEvents: 'all', background: 'rgba(6,6,13,0.9)', border: '1px solid rgba(0,229,255,0.3)', color: '#00e5ff', padding: '0.6rem 1.2rem', fontFamily: 'Space Mono, monospace', fontSize: '0.6rem', letterSpacing: '0.15em', cursor: 'pointer', backdropFilter: 'blur(12px)' }}>
           🛒 CARRITO {cart > 0 && `(${cart})`}
         </button>
       </div>
