@@ -1,0 +1,11 @@
+{
+  "title": "FABIWEBS",
+  "description": "Create stunning, professionally designed logos with optimized 3D animations, perfect for businesses looking to enhance their brand identity.",
+  "robots": {
+    "index": false
+  },
+  "accessibility": {
+    "addBypassLinks": false,
+    "ignoreReducedMotion": false
+  }
+}
