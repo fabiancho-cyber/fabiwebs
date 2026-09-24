@@ -89,7 +89,9 @@ const router = createBrowserRouter([
       { path: '/demo/formulario', Component: FormDemo },
     ],
   },
-])
+], {
+  basename: import.meta.env.PROD ? '/fabiwebs' : '/',
+})
 
 export default function App() {
   return <RouterProvider router={router} />
