@@ -126,7 +126,7 @@ function Nav() {
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
   useEffect(() => { const fn = () => setScrolled(window.scrollY > 60); window.addEventListener('scroll', fn, { passive: true }); return () => window.removeEventListener('scroll', fn) }, [])
-  const links: [string, string][] = [['Proyectos', '#showcase'], ['Servicios', '#services'], ['Sobre mí', '#about'], ['Contacto', '#contact']]
+  const links: [string, string][] = [['Proyectos', '#showcase'], ['Servicios', '#services'], ['Planes', '#plans'], ['Contacto', '#contact']]
   return (
     <nav style={{ position: 'fixed', top: 0, left: 0, right: 0, zIndex: 7000, padding: scrolled ? '12px 0' : '24px 0', background: scrolled ? 'rgba(5,5,7,0.94)' : 'transparent', backdropFilter: scrolled ? 'blur(20px)' : 'none', borderBottom: scrolled ? '1px solid rgba(255,255,255,0.06)' : 'none', transition: 'all 0.4s ease' }}>
       <div style={{ maxWidth: 1400, margin: '0 auto', padding: '0 clamp(1.25rem,5vw,2.5rem)', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
@@ -176,6 +176,7 @@ function HeroBanner() {
 
 function Hero() {
   const ref = useRef<HTMLElement>(null)
+  const waLink = `https://wa.me/573164598263?text=${encodeURIComponent('Hola FABIWEBS, quiero hablar sobre un proyecto web.')}`
   useEffect(() => {
     const tl = gsap.timeline({ delay: 0.4 })
     tl.fromTo('.hero-tag', { opacity: 0, y: 16 }, { opacity: 1, y: 0, stagger: 0.08, duration: 0.5, ease: 'power3.out' })
@@ -188,20 +189,25 @@ function Hero() {
     <section ref={ref} id="hero" style={{ position: 'relative', minHeight: '100vh', display: 'flex', alignItems: 'center', overflow: 'hidden', background: '#050507' }}>
       <HeroBanner />
       <div style={{ position: 'absolute', inset: 0, pointerEvents: 'none', zIndex: 1, backgroundImage: 'linear-gradient(rgba(0,229,255,0.018) 1px,transparent 1px),linear-gradient(90deg,rgba(0,229,255,0.018) 1px,transparent 1px)', backgroundSize: '80px 80px' }} />
-      <div className="hero-content" style={{ position: 'relative', zIndex: 10, maxWidth: 1400, margin: '0 auto', padding: 'clamp(6rem,12vh,8rem) clamp(1.25rem,5vw,2.5rem) 5rem', width: '100%' }}>
+      <div className="hero-content" style={{ position: 'relative', zIndex: 10, maxWidth: 1400, margin: '0 auto', padding: 'clamp(7rem,16vh,10rem) clamp(1.25rem,5vw,2.5rem) 5rem', width: '100%' }}>
+        <div className="hero-mockups" aria-hidden="true">
+          <div className="hero-browser hero-browser-back"><div className="hero-browser-bar"><i /><i /><i /></div><div className="hero-browser-body"><span>TU MARCA</span><b>HAZLA<br />MEMORABLE.</b><em /></div></div>
+          <div className="hero-browser hero-browser-front"><div className="hero-browser-bar"><i /><i /><i /><small>fabiwebs.studio</small></div><div className="hero-browser-body hero-browser-accent"><span>FABIWEBS / 2026</span><b>Experiencias<br />digitales.</b><em /></div></div>
+          <div className="hero-phone"><div className="hero-phone-notch" /><div className="hero-phone-screen"><span>01 — 04</span><b>CREA<br />EN GRANDE.</b><em /></div></div>
+        </div>
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.6rem', marginBottom: '2rem' }}>
-          {['HTML', 'CSS', 'JAVASCRIPT', 'UI/UX', 'RESPONSIVE'].map(t => (
+          {['HTML', 'CSS', 'JAVASCRIPT', 'DISEÑO UX/UI', 'ADAPTABLE'].map(t => (
             <span key={t} className="hero-tag" style={{ padding: '0.35rem 0.75rem', fontFamily: 'Space Mono, monospace', fontSize: '0.55rem', letterSpacing: '0.18em', color: 'rgba(0,229,255,0.75)', opacity: 0, border: '1px solid rgba(0,229,255,0.18)', background: 'rgba(0,229,255,0.05)', backdropFilter: 'blur(6px)' }}>{t}</span>
           ))}
         </div>
-        <h1 className="hero-h1" style={{ fontFamily: 'Rajdhani, sans-serif', fontSize: 'clamp(2.6rem,8vw,7.5rem)', fontWeight: 700, lineHeight: 1.0, letterSpacing: '-0.02em', color: '#e8eaf0', maxWidth: '860px', marginBottom: '1.5rem', opacity: 0 }}>
-          Creamos la<br /><span style={{ color: '#00e5ff' }}>presencia digital</span><br />que tu marca<br />merece.
+        <h1 className="hero-h1" style={{ fontFamily: 'Rajdhani, sans-serif', fontSize: 'clamp(3.4rem,9.5vw,9.5rem)', fontWeight: 700, lineHeight: 0.88, letterSpacing: '-0.04em', color: '#e8eaf0', maxWidth: '900px', marginBottom: '1.75rem', opacity: 0 }}>
+          CREAMOS<br /><span style={{ color: '#00e5ff' }}>MUNDOS</span><br />DIGITALES.
         </h1>
         <p className="hero-sub" style={{ fontFamily: 'Inter, sans-serif', fontSize: 'clamp(0.95rem,1.8vw,1.1rem)', color: 'rgba(255,255,255,0.55)', maxWidth: '480px', lineHeight: 1.85, marginBottom: '2.5rem', opacity: 0 }}>
-          Diseñamos experiencias web personalizadas para marcas, negocios y personas que quieren destacar.
+          Diseñamos y desarrollamos sitios web con claridad, carácter y propósito para marcas que quieren avanzar.
         </p>
         <div className="hero-btns" style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem', opacity: 0 }}>
-          <a href="#showcase" style={{ fontFamily: 'Rajdhani, sans-serif', fontSize: '0.85rem', letterSpacing: '0.2em', fontWeight: 700, color: '#050507', background: '#00e5ff', padding: '1rem 2.2rem', textDecoration: 'none', cursor: 'none', transition: 'all 0.3s', display: 'inline-block' }} onMouseEnter={e => { (e.currentTarget as HTMLElement).style.transform = 'scale(1.04)'; e.currentTarget.style.background = '#fff' }} onMouseLeave={e => { (e.currentTarget as HTMLElement).style.transform = 'scale(1)'; e.currentTarget.style.background = '#00e5ff' }}>VER PROYECTOS</a>
+          <a href={waLink} target="_blank" rel="noopener noreferrer" style={{ fontFamily: 'Rajdhani, sans-serif', fontSize: '0.85rem', letterSpacing: '0.2em', fontWeight: 700, color: '#050507', background: '#00e5ff', padding: '1rem 2.2rem', textDecoration: 'none', cursor: 'none', transition: 'all 0.3s', display: 'inline-block' }} onMouseEnter={e => { (e.currentTarget as HTMLElement).style.transform = 'scale(1.04)'; e.currentTarget.style.background = '#fff' }} onMouseLeave={e => { (e.currentTarget as HTMLElement).style.transform = 'scale(1)'; e.currentTarget.style.background = '#00e5ff' }}>HABLEMOS POR WHATSAPP ↗</a>
           <a href="#contact" style={{ fontFamily: 'Rajdhani, sans-serif', fontSize: '0.85rem', letterSpacing: '0.2em', fontWeight: 700, color: '#e8eaf0', border: '1px solid rgba(255,255,255,0.28)', padding: '1rem 2.2rem', textDecoration: 'none', cursor: 'none', transition: 'all 0.3s', display: 'inline-block', background: 'rgba(255,255,255,0.04)', backdropFilter: 'blur(6px)' }} onMouseEnter={e => { e.currentTarget.style.borderColor = '#00e5ff'; e.currentTarget.style.color = '#00e5ff' }} onMouseLeave={e => { e.currentTarget.style.borderColor = 'rgba(255,255,255,0.28)'; e.currentTarget.style.color = '#e8eaf0' }}>HABLEMOS</a>
         </div>
         <div style={{ marginTop: 'clamp(3rem,8vh,5rem)', display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
@@ -215,7 +221,7 @@ function Hero() {
 
 const projects = [
   { num: '01', cat: 'PORTAFOLIO DIGITAL', title: 'Portafolio Digital', sub: 'Presencia personal única y memorable.', tech: 'HTML · CSS · JavaScript', img: IMG.proj1, route: '/demo/portfolio' },
-  { num: '02', cat: 'TIENDA EN LÍNEA', title: 'E-Commerce', sub: 'Tienda online diseñada para vender.', tech: 'React · Node.js · Stripe', img: IMG.proj2, route: '/demo/ecommerce' },
+  { num: '02', cat: 'TIENDA EN LÍNEA', title: 'Tienda online', sub: 'Tienda online diseñada para vender.', tech: 'React · Node.js · Stripe', img: IMG.proj2, route: '/demo/ecommerce' },
   { num: '03', cat: 'EMPRESARIAL', title: 'Sitio Corporativo', sub: 'Presencia digital profesional.', tech: 'HTML · CSS · JavaScript', img: IMG.proj3, route: '/demo/corporativo' },
   { num: '04', cat: 'HERRAMIENTA WEB', title: 'Formulario Dinámico', sub: 'Formularios inteligentes y modernos.', tech: 'React · Tailwind CSS', img: IMG.proj4, route: '/demo/formulario' },
 ]
@@ -258,7 +264,7 @@ function Showcase() {
               </div>
             ))}
           </div>
-          <div className="hidden lg:block" style={{ position: 'relative', minHeight: '480px', overflow: 'hidden' }}>
+          <div className="project-preview" style={{ position: 'relative', minHeight: 'clamp(320px,42vw,560px)', overflow: 'hidden' }}>
             {projects.map((p, i) => (
               <div key={i} style={{ position: 'absolute', inset: 0, transition: 'opacity 0.6s ease', opacity: active === i ? 1 : 0 }}>
                 <img src={p.img} alt={p.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
@@ -334,7 +340,7 @@ function CraftedSection() {
 
 const services = [
   { num: '01', name: 'EXPERIENCIA WEB', desc: 'Diseño y desarrollo de páginas web únicas y personalizadas.', img: 'https://images.unsplash.com/photo-1607799279861-4dd421887fb3?w=400&h=300&fit=crop' },
-  { num: '02', name: 'E-COMMERCE', desc: 'Tiendas online diseñadas para vender más.', img: IMG.proj2 },
+  { num: '02', name: 'TIENDA ONLINE', desc: 'Tiendas online diseñadas para vender más.', img: IMG.proj2 },
   { num: '03', name: 'MARCA DIGITAL', desc: 'Presencia digital completa para marcas y profesionales.', img: IMG.proj1 },
   { num: '04', name: 'REDISEÑO', desc: 'Transformación moderna de páginas existentes.', img: IMG.proj3 },
   { num: '05', name: 'RENDIMIENTO', desc: 'Optimización, responsive y experiencia de usuario.', img: IMG.code },
@@ -350,10 +356,10 @@ function Services() {
           <span style={{ fontFamily: 'Space Mono, monospace', fontSize: '0.6rem', letterSpacing: '0.2em', color: 'rgba(0,229,255,0.5)', display: 'block', marginBottom: '1rem' }}>// 03</span>
           <h2 style={{ fontFamily: 'Rajdhani, sans-serif', fontSize: 'clamp(2.2rem,6vw,5.5rem)', fontWeight: 700, letterSpacing: '-0.02em', color: '#e8eaf0' }}>SERVICIOS</h2>
         </div>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(min(100%,500px),1fr))', gap: 0 }}>
+        <div className="service-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(min(100%,240px),1fr))', gap: '1px', background: 'rgba(255,255,255,0.08)' }}>
           <div>
             {services.map((s, i) => (
-              <div key={i} className="svc-item" data-hover="true" style={{ padding: 'clamp(1.25rem,3vw,2rem) 0', borderBottom: '1px solid rgba(255,255,255,0.06)', cursor: 'none', transition: 'padding-left 0.3s', paddingLeft: hovered === i ? '1rem' : '0' }} onMouseEnter={() => setHovered(i)} onMouseLeave={() => setHovered(null)}>
+              <div key={i} className="svc-item service-card" data-hover="true" style={{ padding: 'clamp(1.25rem,3vw,2rem)', borderBottom: '1px solid rgba(255,255,255,0.06)', cursor: 'none', transition: 'padding-left 0.3s', paddingLeft: hovered === i ? '1.5rem' : '1.25rem', background: '#08080d' }} onMouseEnter={() => setHovered(i)} onMouseLeave={() => setHovered(null)}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '1.25rem' }}>
                   <span style={{ fontFamily: 'Space Mono, monospace', fontSize: '0.6rem', color: 'rgba(0,229,255,0.5)', minWidth: '2rem' }}>{s.num}</span>
                   <div style={{ flex: 1 }}>
@@ -365,7 +371,7 @@ function Services() {
               </div>
             ))}
           </div>
-          <div className="hidden lg:flex" style={{ alignItems: 'center', justifyContent: 'center', paddingLeft: '4rem' }}>
+          <div className="hidden lg:flex service-preview" style={{ alignItems: 'center', justifyContent: 'center', padding: '2rem', background: '#08080d' }}>
             <div style={{ position: 'relative', width: '100%', maxWidth: 400, aspectRatio: '4/3', overflow: 'hidden', border: '1px solid rgba(255,255,255,0.06)' }}>
               {services.map((s, i) => <div key={i} style={{ position: 'absolute', inset: 0, transition: 'opacity 0.5s ease', opacity: hovered === i ? 1 : 0 }}><img src={s.img} alt={s.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} /><div style={{ position: 'absolute', inset: 0, background: 'rgba(5,5,7,0.35)' }} /></div>)}
               {hovered === null && <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center' }}><span style={{ fontFamily: 'Space Mono, monospace', fontSize: '0.62rem', letterSpacing: '0.2em', color: 'rgba(255,255,255,0.18)', textAlign: 'center' }}>PASA EL CURSOR<br />PARA EXPLORAR</span></div>}
@@ -444,8 +450,28 @@ function About() {
   )
 }
 
+function Process() {
+  const steps = [
+    ['01', 'DESCUBRIR', 'Entendemos tu negocio, tu audiencia y lo que debe lograr el sitio.'],
+    ['02', 'DISEÑAR', 'Convertimos la estrategia en una dirección visual clara y memorable.'],
+    ['03', 'DESARROLLAR', 'Construimos una experiencia rápida, responsive y lista para crecer.'],
+    ['04', 'PUBLICAR', 'Publicamos, medimos y te acompañamos después del lanzamiento.'],
+  ]
+  return (
+    <section id="process" style={{ padding: 'clamp(4rem,10vh,8rem) 0', background: '#08080d' }}>
+      <div style={{ maxWidth: 1400, margin: '0 auto', padding: '0 clamp(1.25rem,5vw,2.5rem)' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', gap: '2rem', alignItems: 'end', flexWrap: 'wrap', marginBottom: '3rem' }}>
+          <div><span className="section-num">// 06</span><h2 style={{ fontFamily: 'Rajdhani, sans-serif', fontSize: 'clamp(2.2rem,6vw,5.5rem)', fontWeight: 700, color: '#e8eaf0', marginTop: '1rem' }}>DE LA IDEA<br /><span style={{ color: '#00e5ff' }}>AL IMPACTO.</span></h2></div>
+          <p style={{ fontFamily: 'Inter, sans-serif', color: 'rgba(255,255,255,0.45)', maxWidth: 320, lineHeight: 1.8 }}>Un proceso simple, colaborativo y enfocado en hacer que tu presencia digital trabaje para ti.</p>
+        </div>
+        <div className="process-grid">{steps.map(([num, title, desc], i) => <article key={title} className="process-card reveal"><span>{num}</span><h3>{title}</h3><p>{desc}</p>{i < steps.length - 1 && <b>→</b>}</article>)}</div>
+      </div>
+    </section>
+  )
+}
+
 function TechStack() {
-  const stack = ['Visual Studio Code', 'HTML5', 'CSS3', 'JavaScript', 'GitHub', 'Diseño Responsive', 'UI/UX Design', 'React']
+  const stack = ['Visual Studio Code', 'HTML5', 'CSS3', 'JavaScript', 'GitHub', 'Diseño adaptable', 'Diseño UX/UI', 'React']
   return (
     <section id="tech" style={{ padding: 'clamp(4rem,10vh,8rem) 0', background: '#08080d' }}>
       <div style={{ maxWidth: 1400, margin: '0 auto', padding: '0 clamp(1.25rem,5vw,2.5rem)' }}>
@@ -469,6 +495,45 @@ function TechStack() {
             &nbsp;&nbsp;<span className="code-token-attr">ubicación</span>: <span className="code-token-string">"Colombia 🇨🇴"</span><br />
             {'}'};
           </div>
+        </div>
+      </div>
+    </section>
+  )
+}
+
+function PlansAndFaq() {
+  const plans = [
+    ['PÁGINA DE INICIO', 'Hablemos de tu proyecto', 'Una página enfocada en presentar tu negocio y convertir visitas en contactos.', ['Diseño adaptable', 'Formulario de contacto', 'Botón de WhatsApp', 'SEO básico']],
+    ['SITIO PROFESIONAL', 'Propuesta personalizada', 'Sitio completo para empresas, profesionales y marcas que necesitan crecer.', ['Hasta 6 secciones', 'Diseño personalizado', 'Integraciones y analítica', 'Publicación y soporte inicial']],
+    ['TIENDA EN LÍNEA', 'Cotización según alcance', 'Tienda online preparada para mostrar productos y recibir pedidos.', ['Catálogo y carrito', 'Proceso de compra configurable', 'Panel ampliable', 'Acompañamiento de lanzamiento']],
+  ]
+  const questions = [
+    ['¿Cuánto tarda un sitio web?', 'Un proyecto estándar tarda entre 2 y 6 semanas, según el alcance y la rapidez con la que recibamos el contenido.'],
+    ['¿Incluye dominio y hosting?', 'Puedo ayudarte a configurarlos y dejar todo publicado. El costo de esos servicios se cotiza por separado según el proveedor.'],
+    ['¿La página funciona en celular?', 'Sí. Todos los proyectos se diseñan para funcionar correctamente en celulares, tabletas y computadores.'],
+    ['¿Puedo pedir cambios?', 'Sí. Definimos revisiones durante el proceso para que el resultado final responda a tus objetivos.'],
+  ]
+  return (
+    <section id="plans" style={{ padding: 'clamp(4rem,10vh,8rem) 0', background: '#04040a' }}>
+      <div style={{ maxWidth: 1400, margin: '0 auto', padding: '0 clamp(1.25rem,5vw,2.5rem)' }}>
+        <div style={{ marginBottom: '3rem' }}>
+          <span style={{ fontFamily: 'Space Mono, monospace', fontSize: '0.6rem', letterSpacing: '0.2em', color: 'rgba(0,229,255,0.5)' }}>// 07</span>
+          <h2 style={{ fontFamily: 'Rajdhani, sans-serif', fontSize: 'clamp(2.2rem,6vw,5.5rem)', fontWeight: 700, color: '#e8eaf0', marginTop: '1rem' }}>SOLUCIONES PARA<br /><span style={{ color: '#00e5ff' }}>CADA ETAPA.</span></h2>
+          <p style={{ fontFamily: 'Inter, sans-serif', color: 'rgba(255,255,255,0.5)', maxWidth: 620, lineHeight: 1.8, marginTop: '1.25rem' }}>Estas soluciones sirven como punto de partida. Cuéntame qué necesitas y prepararé una propuesta personalizada para tu proyecto.</p>
+        </div>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(min(100%,280px),1fr))', gap: '1rem', marginBottom: 'clamp(4rem,8vh,7rem)' }}>
+          {plans.map(([name, price, desc, items]) => (
+            <article key={name} style={{ border: '1px solid rgba(255,255,255,0.1)', padding: '1.5rem', background: 'rgba(255,255,255,0.02)' }}>
+              <p style={{ fontFamily: 'Space Mono, monospace', fontSize: '0.58rem', letterSpacing: '0.16em', color: '#00e5ff' }}>{name}</p>
+              <h3 style={{ fontFamily: 'Rajdhani, sans-serif', fontSize: '1.8rem', color: '#e8eaf0', margin: '1rem 0 0.75rem' }}>{price}</h3>
+              <p style={{ fontFamily: 'Inter, sans-serif', fontSize: '0.9rem', lineHeight: 1.7, color: 'rgba(255,255,255,0.48)', minHeight: '5rem' }}>{desc}</p>
+              <ul style={{ padding: 0, margin: '1.25rem 0 0', listStyle: 'none' }}>{(items as string[]).map(item => <li key={item} style={{ fontFamily: 'Inter, sans-serif', fontSize: '0.82rem', color: 'rgba(255,255,255,0.65)', padding: '0.45rem 0', borderTop: '1px solid rgba(255,255,255,0.06)' }}>✓ {item}</li>)}</ul>
+            </article>
+          ))}
+        </div>
+        <div style={{ maxWidth: 900 }}>
+          <h3 style={{ fontFamily: 'Rajdhani, sans-serif', fontSize: 'clamp(1.8rem,4vw,3rem)', color: '#e8eaf0', marginBottom: '1.5rem' }}>PREGUNTAS FRECUENTES</h3>
+          {questions.map(([question, answer]) => <details key={question} style={{ borderTop: '1px solid rgba(255,255,255,0.1)', padding: '1.1rem 0' }}><summary style={{ fontFamily: 'Rajdhani, sans-serif', fontSize: '1.1rem', color: '#e8eaf0', cursor: 'pointer' }}>{question}</summary><p style={{ fontFamily: 'Inter, sans-serif', fontSize: '0.9rem', lineHeight: 1.7, color: 'rgba(255,255,255,0.5)', paddingTop: '0.75rem', maxWidth: 700 }}>{answer}</p></details>)}
         </div>
       </div>
     </section>
@@ -545,7 +610,7 @@ function Contact() {
       <div style={{ maxWidth: 1400, margin: '0 auto', padding: '0 clamp(1.25rem,5vw,2.5rem)', width: '100%', position: 'relative', zIndex: 10 }}>
         <div style={{ marginBottom: 'clamp(3rem,8vh,6rem)', textAlign: 'center' }}>
           <span style={{ fontFamily: 'Space Mono, monospace', fontSize: '0.6rem', letterSpacing: '0.2em', color: 'rgba(0,229,255,0.5)', display: 'block', marginBottom: '1.5rem' }}>// 08</span>
-          <h2 style={{ fontFamily: 'Rajdhani, sans-serif', fontSize: 'clamp(2.2rem,8vw,8rem)', fontWeight: 700, lineHeight: 1.0, letterSpacing: '-0.03em', color: '#e8eaf0' }}>CONSTRUYAMOS<br /><span style={{ color: '#00e5ff' }}>ALGO DIFERENTE.</span></h2>
+          <h2 style={{ fontFamily: 'Rajdhani, sans-serif', fontSize: 'clamp(2.2rem,8vw,8rem)', fontWeight: 700, lineHeight: 1.0, letterSpacing: '-0.03em', color: '#e8eaf0' }}>¿TIENES UN<br /><span style={{ color: '#00e5ff' }}>PROYECTO EN MENTE?</span></h2>
         </div>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(min(100%,420px),1fr))', gap: 'clamp(2.5rem,6vw,5rem)' }}>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
@@ -649,7 +714,7 @@ export default function Home() {
       <ProgressBar />
       {!introDone && <Intro onDone={handleIntroDone} />}
       <div style={{ opacity: introDone ? 1 : 0, transition: wasAlreadyDone.current ? 'none' : 'opacity 0.7s ease' }}>
-        <Nav /><Hero /><Showcase /><CraftedSection /><Services /><BeforeAfter /><About /><TechStack /><ClientExperience /><Contact /><Footer />
+        <Nav /><Hero /><Showcase /><CraftedSection /><Services /><BeforeAfter /><About /><Process /><TechStack /><PlansAndFaq /><ClientExperience /><Contact /><Footer />
       </div>
     </div>
   )

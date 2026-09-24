@@ -37,6 +37,13 @@ jobs:
       - name: Enable SPA fallback
         run: cp dist/index.html dist/404.html
 
+      - name: Create direct route entry points
+        run: |
+          for route in demo/portfolio demo/ecommerce demo/corporativo demo/formulario; do
+            mkdir -p "dist/$route"
+            cp dist/index.html "dist/$route/index.html"
+          done
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:

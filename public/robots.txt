@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://fabiancho-cyber.github.io/fabiwebs/sitemap.xml

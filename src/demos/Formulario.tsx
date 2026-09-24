@@ -72,8 +72,8 @@ type FormData = {
   termsAccepted: boolean
 }
 
-const projectTypes = ['Sitio Web', 'E-Commerce', 'Portafolio', 'Aplicación Web', 'Rediseño']
-const budgets = ['$500K - $1M COP', '$1M - $2M COP', '$2M - $5M COP', '+$5M COP']
+const projectTypes = ['Sitio web', 'Tienda online', 'Portafolio', 'Aplicación web', 'Rediseño']
+const budgets = ['Por definir', 'Presupuesto reservado', 'Necesito orientación', 'Aún no lo sé']
 const timelines = ['1 mes', '2-3 meses', '3-6 meses', 'Flexible']
 const features = ['Diseño Responsive', 'Animaciones', 'Panel Admin', 'Blog', 'Chat en vivo', 'SEO Avanzado', 'E-commerce', 'Formularios']
 
@@ -81,6 +81,8 @@ export default function FormDemo() {
   const navigate = useNavigate()
   const [step, setStep] = useState(0)
   const [done, setDone] = useState(false)
+  const [sending, setSending] = useState(false)
+  const [error, setError] = useState('')
   const [form, setForm] = useState<FormData>({
     name: '', email: '', phone: '',
     projectType: '', budget: '', timeline: '',
@@ -98,6 +100,20 @@ export default function FormDemo() {
   }, [])
 
   const animateStep = (next: number) => {
+    if (next > step) {
+      const missing = step === 0
+        ? (!form.name.trim() ? 'Escribe tu nombre.' : !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email) ? 'Escribe un email válido.' : !form.phone.trim() ? 'El teléfono es obligatorio.' : '')
+        : step === 1
+          ? (!form.projectType ? 'Selecciona el tipo de proyecto.' : !form.budget ? 'Selecciona un presupuesto.' : '')
+          : step === 2 && !form.timeline
+            ? 'Selecciona un plazo.'
+            : ''
+      if (missing) {
+        setError(missing)
+        return
+      }
+    }
+    setError('')
     gsap.fromTo('.step-content', { opacity: 0, x: 30 }, { opacity: 1, x: 0, duration: 0.4, ease: 'power3.out' })
     setStep(next)
   }
@@ -109,8 +125,36 @@ export default function FormDemo() {
   const inp: React.CSSProperties = { width: '100%', background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.1)', padding: '0.9rem 1.1rem', fontFamily: 'Inter, sans-serif', fontSize: '0.95rem', color: '#e8eaf0', outline: 'none', transition: 'border-color 0.3s', borderRadius: 0 }
   const lbl: React.CSSProperties = { fontFamily: 'Space Mono, monospace', fontSize: '0.58rem', letterSpacing: '0.2em', color: 'rgba(255,255,255,0.35)', display: 'block', marginBottom: '0.5rem' }
 
-  const handleSubmit = () => {
-    gsap.to('.fm-card', { opacity: 0, y: -20, duration: 0.3, ease: 'power2.in', onComplete: () => { setDone(true); gsap.fromTo('.done-screen', { opacity: 0, scale: 0.95 }, { opacity: 1, scale: 1, duration: 0.6, ease: 'back.out(1.5)' }) } })
+  const handleSubmit = async () => {
+    if (!form.termsAccepted || sending) return
+    setSending(true)
+    setError('')
+    try {
+      const response = await fetch('https://formsubmit.co/ajax/fabitechft@hotmail.com', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({
+          Nombre: form.name,
+          Email: form.email,
+          Teléfono: form.phone,
+          'Tipo de proyecto': form.projectType,
+          Presupuesto: form.budget,
+          Plazo: form.timeline,
+          Funcionalidades: form.features.join(', ') || 'No especificadas',
+          Descripción: form.description || 'No especificada',
+          _subject: `FABIWEBS | Cotización de ${form.name}`,
+          _replyto: form.email,
+          _template: 'table',
+          _captcha: true,
+        }),
+      })
+      if (!response.ok) throw new Error('No se pudo enviar la cotización')
+      gsap.to('.fm-card', { opacity: 0, y: -20, duration: 0.3, ease: 'power2.in', onComplete: () => { setDone(true); gsap.fromTo('.done-screen', { opacity: 0, scale: 0.95 }, { opacity: 1, scale: 1, duration: 0.6, ease: 'back.out(1.5)' }) } })
+    } catch {
+      setError('No se pudo enviar la solicitud. Inténtalo de nuevo o escríbenos por WhatsApp.')
+    } finally {
+      setSending(false)
+    }
   }
 
   return (
@@ -171,11 +215,11 @@ export default function FormDemo() {
                         {[
                           { key: 'name', label: 'NOMBRE COMPLETO', type: 'text', ph: 'Tu nombre' },
                           { key: 'email', label: 'EMAIL', type: 'email', ph: 'tu@email.com' },
-                          { key: 'phone', label: 'WHATSAPP (OPCIONAL)', type: 'tel', ph: '+57 300 000 0000' },
+                          { key: 'phone', label: 'WHATSAPP (OBLIGATORIO)', type: 'tel', ph: '+57 300 000 0000' },
                         ].map(f => (
                           <div key={f.key}>
                             <label style={lbl}>{f.label}</label>
-                            <input type={f.type} placeholder={f.ph} value={form[f.key as 'name' | 'email' | 'phone']} onChange={e => setForm(p => ({ ...p, [f.key]: e.target.value }))} style={inp} onFocus={e => (e.currentTarget.style.borderColor = 'rgba(0,229,255,0.5)')} onBlur={e => (e.currentTarget.style.borderColor = 'rgba(255,255,255,0.1)')} />
+                            <input required placeholder={f.ph} type={f.type} value={form[f.key as 'name' | 'email' | 'phone']} onChange={e => setForm(p => ({ ...p, [f.key]: e.target.value }))} style={inp} onFocus={e => (e.currentTarget.style.borderColor = 'rgba(0,229,255,0.5)')} onBlur={e => (e.currentTarget.style.borderColor = 'rgba(255,255,255,0.1)')} />
                           </div>
                         ))}
                       </div>
@@ -264,6 +308,7 @@ export default function FormDemo() {
                       </div>
                     )}
                   </div>
+                  {error && <p role="alert" style={{ fontFamily: 'Inter, sans-serif', fontSize: '0.8rem', lineHeight: 1.5, color: '#ff8a8a', marginTop: '1rem' }}>{error}</p>}
 
                   {/* Navigation */}
                   <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '2rem', gap: '1rem' }}>
@@ -274,7 +319,7 @@ export default function FormDemo() {
                     {step < steps.length - 1 ? (
                       <button onClick={() => animateStep(step + 1)} style={{ fontFamily: 'Rajdhani, sans-serif', fontSize: '0.8rem', letterSpacing: '0.15em', fontWeight: 700, color: '#04040c', background: '#00e5ff', padding: '0.9rem 2rem', border: 'none', cursor: 'pointer', transition: 'all 0.3s', marginLeft: 'auto' }} onMouseEnter={e => { (e.currentTarget as HTMLElement).style.transform = 'scale(1.03)'; e.currentTarget.style.background = '#fff' }} onMouseLeave={e => { (e.currentTarget as HTMLElement).style.transform = 'scale(1)'; e.currentTarget.style.background = '#00e5ff' }}>CONTINUAR →</button>
                     ) : (
-                      <button onClick={handleSubmit} disabled={!form.termsAccepted} style={{ fontFamily: 'Rajdhani, sans-serif', fontSize: '0.8rem', letterSpacing: '0.15em', fontWeight: 700, color: '#04040c', background: form.termsAccepted ? '#00e5ff' : 'rgba(255,255,255,0.1)', padding: '0.9rem 2rem', border: 'none', cursor: form.termsAccepted ? 'pointer' : 'not-allowed', transition: 'all 0.3s', marginLeft: 'auto' }} onMouseEnter={e => { if (form.termsAccepted) { (e.currentTarget as HTMLElement).style.transform = 'scale(1.03)'; e.currentTarget.style.background = '#fff' } }} onMouseLeave={e => { (e.currentTarget as HTMLElement).style.transform = 'scale(1)'; e.currentTarget.style.background = form.termsAccepted ? '#00e5ff' : 'rgba(255,255,255,0.1)' }}>ENVIAR SOLICITUD ✓</button>
+                      <button onClick={handleSubmit} disabled={!form.termsAccepted || sending} style={{ fontFamily: 'Rajdhani, sans-serif', fontSize: '0.8rem', letterSpacing: '0.15em', fontWeight: 700, color: '#04040c', background: form.termsAccepted ? '#00e5ff' : 'rgba(255,255,255,0.1)', padding: '0.9rem 2rem', border: 'none', cursor: form.termsAccepted && !sending ? 'pointer' : 'not-allowed', transition: 'all 0.3s', marginLeft: 'auto' }} onMouseEnter={e => { if (form.termsAccepted) { (e.currentTarget as HTMLElement).style.transform = 'scale(1.03)'; e.currentTarget.style.background = '#fff' } }} onMouseLeave={e => { (e.currentTarget as HTMLElement).style.transform = 'scale(1)'; e.currentTarget.style.background = form.termsAccepted ? '#00e5ff' : 'rgba(255,255,255,0.1)' }}>{sending ? 'ENVIANDO...' : 'ENVIAR SOLICITUD ✓'}</button>
                     )}
                   </div>
 

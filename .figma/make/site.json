@@ -1,8 +1,8 @@
 {
   "title": "FABIWEBS",
-  "description": "Create stunning, professionally designed logos with optimized 3D animations, perfect for businesses looking to enhance their brand identity.",
+  "description": "FABIWEBS crea páginas web, tiendas online y experiencias digitales modernas para negocios, marcas y profesionales.",
   "robots": {
-    "index": false
+    "index": true
   },
   "accessibility": {
     "addBypassLinks": false,

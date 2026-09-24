@@ -130,7 +130,7 @@ export default function PortfolioDemo() {
             ))}
           </div>
 
-          <p className="pd-tag" style={{ fontFamily: 'Space Mono, monospace', fontSize: '0.65rem', letterSpacing: '0.3em', color: 'rgba(255,255,255,0.3)', marginBottom: '1rem', opacity: 0 }}>ALEX MORENO — CREATIVE DIRECTOR</p>
+          <p className="pd-tag" style={{ fontFamily: 'Space Mono, monospace', fontSize: '0.65rem', letterSpacing: '0.3em', color: 'rgba(255,255,255,0.3)', marginBottom: '1rem', opacity: 0 }}>CRISTIAN FABIAN — DIRECTOR CREATIVO</p>
 
           <h1 className="pd-title" style={{ fontFamily: 'Rajdhani, sans-serif', fontSize: 'clamp(3rem,9vw,9rem)', fontWeight: 700, lineHeight: 0.95, letterSpacing: '-0.03em', color: '#e8eaf0', marginBottom: '2rem', opacity: 0 }}>
             DISEÑO<br />

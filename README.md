@@ -14,7 +14,9 @@ Sitio web premium para FABIWEBS, enfocado en experiencias digitales, diseño y d
 - Navegación con React Router.
 - Favicon y título personalizado para la pestaña del navegador.
 - Formulario de contacto con nombre, email, teléfono y mensaje.
+- Cotizador por pasos conectado a FormSubmit con proyecto, presupuesto, plazo y funcionalidades.
 - Envío de solicitudes mediante FormSubmit hacia `fabitechft@hotmail.com`.
+- SEO básico con `robots.txt`, sitemap y metadatos para compartir el sitio.
 
 ## Tecnologías
 
@@ -87,6 +89,7 @@ https://github.com/fabiancho-cyber/fabiwebs
 Para publicar la aplicación, genera primero la build de producción y despliega la carpeta `dist/` en un servicio compatible con aplicaciones estáticas, como GitHub Pages, Vercel o Netlify.
 
 GitHub Pages se despliega automáticamente mediante GitHub Actions en cada push a `main`.
+Las rutas de los demos se publican también como entradas estáticas para que funcionen al abrirse directamente.
 
 ## Contacto
 
